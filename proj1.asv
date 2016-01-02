@@ -1,0 +1,28 @@
+function[] = proj1(a)
+
+%Decomposition level 1
+
+[ll1, lh1, hl1, hh1]=dwtprjex(a);
+[ll2, lh2, hl2, hh2]=dwtprjex(ll1);
+[ll3, lh3, hl3, hh3]=dwtprjex(ll2);
+[exlh2, exhl2] = idwtprjhaar(lh3,hl3);
+[exlh1, exhl1] = idwtprjhaar(exlh2,exhl2);
+[exlh0, exhl0] = idwtprjhaar(exlh1,exhl1);
+fused = max(exlh0,exhl0);
+imshow(fused,[]);
+fused = max(exlh2,exhl2);
+
+
+
+[ll2,lh2,hh2,hl2]=dwtprj2(ll1);
+
+[ll3,lh3,hh3,hl3]=dwtprj3(ll2);
+
+%ll=[ll1 lh1;hl1 hh1];
+x2 = zeros(256:256);
+Y2 = idwt2(x2,x2,hl1,x2,'haar');
+X2 = idwt2(x2,lh1,x2,x2,'haar');
+Z2=max(Y2, X2);
+B = [Y2 X2 Z2];
+
+imshow(B);
